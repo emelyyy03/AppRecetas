@@ -73,10 +73,12 @@ class CicloDAOTest {
 
     @Test
     void testCicloDAO() throws SQLException {
+        //Se crea un nombre único para evitar duplicados en la BD
         Random random = new Random();
         int num = random.nextInt(1000) + 1;
-        String nombre = "Ciclo Test " + num;
+        String nombre = "Ciclo02 " + num;
 
+        //Se crea un nuevo objeto Ciclo
         Ciclo ciclo = new Ciclo(
                 0,
                 nombre,
@@ -84,7 +86,9 @@ class CicloDAOTest {
                 Date.valueOf(LocalDate.of(2025, 6, 10))
         );
 
+        //Se llama a create (inserta en SQL Server y lo devuelve con ID generado)
         Ciclo testCiclo = create(ciclo);
+        //Luego llama los demas metodos para probarlos en el ciclo y si no devuelve ningun error es que todo esta bien
         update(testCiclo);
         search(testCiclo);
         delete(testCiclo);
@@ -94,7 +98,7 @@ class CicloDAOTest {
     void createCiclo() throws SQLException {
         Ciclo ciclo = new Ciclo(
                 0,
-                "Ciclo Especial",
+                "Ciclo01",
                 Date.valueOf(LocalDate.of(2025, 7, 1)),
                 Date.valueOf(LocalDate.of(2025, 12, 1))
         );
