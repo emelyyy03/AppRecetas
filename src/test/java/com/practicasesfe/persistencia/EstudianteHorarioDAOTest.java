@@ -16,21 +16,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EstudianteHorarioDAOTest {
 
-    private EstudianteHorarioDAO dao;
+    private EstudianteHorarioDAO estudianteHorarioDAO;
 
     @BeforeEach
     void setUp() {
-        dao = new EstudianteHorarioDAO();
+        estudianteHorarioDAO = new EstudianteHorarioDAO();
     }
 
     @Test
     void testAsignarHorario() {
-        int idEstudiante = 1;
-        int idHorario = 1;
+        int idEstudiante = 2;
+        int idHorario = 2;
         EstudianteHorario asignacion = new EstudianteHorario(idEstudiante, idHorario);
 
         try {
-            EstudianteHorario resultado = dao.asignarHorario(asignacion);
+            EstudianteHorario resultado = estudianteHorarioDAO.asignarHorario(asignacion);
             assertNotNull(resultado);
             assertEquals(idEstudiante, resultado.getIdEstudiante());
             assertEquals(idHorario, resultado.getIdHorario());
@@ -41,15 +41,15 @@ class EstudianteHorarioDAOTest {
 
     @Test
     void testGetHorariosByEstudiante() {
-        int idEstudiante = 1;
-        int idHorario = 1;
+        int idEstudiante = 2;
+        int idHorario = 2;
         EstudianteHorario asignacion = new EstudianteHorario(idEstudiante, idHorario);
 
         try {
-            dao.delete(asignacion); // Asegura que no esté ya asignado
-            dao.asignarHorario(asignacion);
+            estudianteHorarioDAO.delete(asignacion); // Asegura que no esté ya asignado
+            estudianteHorarioDAO.asignarHorario(asignacion);
 
-            ArrayList<Horario> lista = dao.getHorariosByEstudiante(idEstudiante);
+            ArrayList<Horario> lista = estudianteHorarioDAO.getHorariosByEstudiante(idEstudiante);
             assertNotNull(lista);
             assertFalse(lista.isEmpty());
             assertTrue(lista.stream().anyMatch(h -> h.getIdHorario() == idHorario));
@@ -60,15 +60,15 @@ class EstudianteHorarioDAOTest {
 
     @Test
     void testGetEstudiantesByHorario() {
-        int idEstudiante = 1;
-        int idHorario = 1;
+        int idEstudiante = 2;
+        int idHorario = 2;
         EstudianteHorario asignacion = new EstudianteHorario(idEstudiante, idHorario);
 
         try {
-            dao.delete(asignacion); // Limpia si ya estaba
-            dao.asignarHorario(asignacion);
+            estudianteHorarioDAO.delete(asignacion); // Limpia si ya estaba
+            estudianteHorarioDAO.asignarHorario(asignacion);
 
-            ArrayList<Integer> estudiantes = dao.getEstudiantesByHorario(idHorario);
+            ArrayList<Integer> estudiantes = estudianteHorarioDAO.getEstudiantesByHorario(idHorario);
             assertNotNull(estudiantes);
             assertFalse(estudiantes.isEmpty());
             assertTrue(estudiantes.contains(idEstudiante));
@@ -79,13 +79,13 @@ class EstudianteHorarioDAOTest {
 
     @Test
     void testEliminarAsignacion() {
-        int idEstudiante = 1;
-        int idHorario = 1;
+        int idEstudiante = 2;
+        int idHorario = 2;
         EstudianteHorario asignacion = new EstudianteHorario(idEstudiante, idHorario);
 
         try {
             // Elimina directamente la asignación si ya existe
-            boolean eliminado = dao.delete(asignacion);
+            boolean eliminado = estudianteHorarioDAO.delete(asignacion);
             assertTrue(eliminado, "La asignación debería haber sido eliminada");
         } catch (SQLException e) {
             fail("Excepción al eliminar asignación: " + e.getMessage());

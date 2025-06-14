@@ -41,29 +41,7 @@ public class EstudianteHorarioDAO {
         return res;
     }
 
-    // Elimina la asignación de un horario
-    public boolean delete(EstudianteHorario eh) throws SQLException {
-        boolean res = false;
-        try {
-            ps = conn.connect().prepareStatement(
-                    "DELETE FROM estudiante_horarios WHERE id_estudiante = ? AND id_horario = ?"
-            );
-            ps.setInt(1, eh.getIdEstudiante());
-            ps.setInt(2, eh.getIdHorario());
 
-            if (ps.executeUpdate() > 0) {
-                res = true;
-            }
-
-            ps.close();
-        } catch (SQLException ex) {
-            throw new SQLException("Error al eliminar asignación de horario: " + ex.getMessage(), ex);
-        } finally {
-            ps = null;
-            conn.disconnect();
-        }
-        return res;
-    }
 
     // Devuelve los horarios asignados a un estudiante
     public ArrayList<Horario> getHorariosByEstudiante(int idEstudiante) throws SQLException {
@@ -124,5 +102,29 @@ public class EstudianteHorarioDAO {
             conn.disconnect();
         }
         return estudiantes;
+    }
+
+    // Elimina la asignación de un horario
+    public boolean delete(EstudianteHorario eh) throws SQLException {
+        boolean res = false;
+        try {
+            ps = conn.connect().prepareStatement(
+                    "DELETE FROM estudiante_horarios WHERE id_estudiante = ? AND id_horario = ?"
+            );
+            ps.setInt(1, eh.getIdEstudiante());
+            ps.setInt(2, eh.getIdHorario());
+
+            if (ps.executeUpdate() > 0) {
+                res = true;
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            throw new SQLException("Error al eliminar asignación de horario: " + ex.getMessage(), ex);
+        } finally {
+            ps = null;
+            conn.disconnect();
+        }
+        return res;
     }
 }
