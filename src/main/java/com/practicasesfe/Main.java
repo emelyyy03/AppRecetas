@@ -14,6 +14,7 @@ public class Main {
             principalForm.setVisible(true);
         });*/
 
+
         // Recomendado: correr en el hilo de eventos de Swing
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Pantalla Principal");
