@@ -2,7 +2,7 @@ package com.practicasesfe.Formularios;
 
 import javax.swing.*;
 
-public class PruebaCicloForm {
+public class PruebaCicloForm extends JPanel {
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField1;
@@ -15,4 +15,9 @@ public class PruebaCicloForm {
     private JButton verButton;
     private JButton eliminarButton;
     private JButton volverButton;
+    private JPanel rootPanel;
+
+    public JPanel getRootPanel() {
+        return rootPanel;
+    }
 }
