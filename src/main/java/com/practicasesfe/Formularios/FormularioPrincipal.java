@@ -11,12 +11,20 @@ public class FormularioPrincipal {
 
     private JPanel rootPanel;
     private JPanel contentPanel;
-    private JMenu menuSeleccionado = null;
+    private String opcionActual= "";
 
 
-    public FormularioPrincipal() {
+    /*public FormularioPrincipal() {
+        // Asegurarse de que rootPanel tenga fondo visible
+        rootPanel.setOpaque(true);
+        rootPanel.setBackground(new Color(0, 0, 128)); // fondo oscuro
+
+            contentPanel.setOpaque(true);
+            contentPanel.setBackground(new Color(0, 0, 128)); // mismo fondo oscuro
+            contentPanel.setLayout(new CardLayout());
+
         // Configurar CardLayout manualmente
-        contentPanel.setLayout(new CardLayout());
+       // contentPanel.setLayout(new CardLayout());
 
         // Agregar formularios
         contentPanel.add(new PerfilForm(), "perfil");
@@ -31,9 +39,52 @@ public class FormularioPrincipal {
         contentPanel.add(new ProgramasForm(), "programas");
     }
 
+
+    }*/
+
+    public FormularioPrincipal() {
+
+
+        // Asegurarse de que rootPanel tenga fondo visible
+        rootPanel.setOpaque(true);
+        rootPanel.setBackground(new Color(0, 0, 128)); // fondo azul oscuro
+
+        if (contentPanel != null) {
+            contentPanel.setOpaque(true);
+            contentPanel.setBackground(new Color(0, 0, 128)); // mismo fondo azul oscuro
+            contentPanel.setLayout(new CardLayout());
+
+            // Panel base original del formulario principal
+            JPanel panelBase = new JPanel();
+            panelBase.setOpaque(false); // transparente para que se vea el fondo
+            contentPanel.add(panelBase, "inicio");  // <- este es el panel base por defecto
+
+            // Agregar formularios al contentPanel
+            contentPanel.add(new PerfilForm(), "perfil");
+            contentPanel.add(new UsuariosForm(), "usuarios");
+            contentPanel.add(new EstudiantesForm(), "estudiantes");
+            contentPanel.add(new DocentesForm(), "docentes");
+            contentPanel.add(new MateriaForm(), "materia");
+            contentPanel.add(new HorarioForm(), "horarios");
+            contentPanel.add(new EstudianteHorarioForm(), "estudianteHorario");
+            contentPanel.add(new PruebaCicloForm().getRootPanel(), "ciclos");
+            contentPanel.add(new AulasForm(), "aulas");
+            contentPanel.add(new ProgramasForm(), "programas");
+
+            // Mostrar el panel base por defecto
+            CardLayout cl = (CardLayout) contentPanel.getLayout();
+            cl.show(contentPanel, "inicio");
+
+        } else {
+            System.err.println("❌ contentPanel está null. Verifica en el UI Designer que el nombre del panel sea exactamente 'contentPanel'.");
+        }
+    }
+
     public JPanel getRootPanel() {
         return rootPanel;
     }
+
+
 
     public void agregarMenu(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
@@ -144,12 +195,30 @@ public class FormularioPrincipal {
         frame.setJMenuBar(menuBar);
     }
 
-    private MouseAdapter menuClick(String name) {
+
+
+    /*private MouseAdapter menuClick(String name) {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 CardLayout cl = (CardLayout) contentPanel.getLayout();
                 cl.show(contentPanel, name);
+            }
+        };
+    }*/
+
+    private MouseAdapter menuClick(String name) {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                CardLayout cl = (CardLayout) contentPanel.getLayout();
+                if (name.equals(opcionActual)) {
+                    cl.show(contentPanel, "inicio"); // volver al panel base
+                    opcionActual = "";
+                } else {
+                    cl.show(contentPanel, name); // mostrar formulario
+                    opcionActual = name;
+                }
             }
         };
     }
@@ -169,10 +238,7 @@ public class FormularioPrincipal {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 600);
         frame.setLocationRelativeTo(null);
-
-        // Agregar menú dinámicamente
         mainForm.agregarMenu(frame);
-
         frame.setVisible(true);
     }
 
