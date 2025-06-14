@@ -3,8 +3,6 @@ package com.practicasesfe.Formularios;
 import javax.swing.*;
 
 public class PruebaCicloForm extends JPanel {
-    private JTextField textField2;
-    private JTextField textField3;
     private JTextField textField1;
     private JTable table1;
     private JButton buscarButton;
@@ -16,6 +14,8 @@ public class PruebaCicloForm extends JPanel {
 
     private JPanel rootPanel;
     private JButton cancelarButton;
+    private JSpinner spinner1;
+    private JSpinner spinner2;
 
 
     public JPanel getRootPanel() {

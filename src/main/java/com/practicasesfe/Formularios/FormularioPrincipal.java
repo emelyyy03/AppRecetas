@@ -47,11 +47,11 @@ public class FormularioPrincipal {
 
         // Asegurarse de que rootPanel tenga fondo visible
         rootPanel.setOpaque(true);
-        rootPanel.setBackground(new Color(0, 0, 128)); // fondo azul oscuro
+        rootPanel.setBackground(new Color(24, 24, 24)); // fondo azul oscuro
 
         if (contentPanel != null) {
             contentPanel.setOpaque(true);
-            contentPanel.setBackground(new Color(0, 0, 128)); // mismo fondo azul oscuro
+            contentPanel.setBackground(new Color(24, 24, 24)); // mismo fondo azul oscuro
             contentPanel.setLayout(new CardLayout());
 
             // Panel base original del formulario principal
@@ -62,10 +62,10 @@ public class FormularioPrincipal {
             // Agregar formularios al contentPanel
             contentPanel.add(new PerfilForm(), "perfil");
             contentPanel.add(new UsuariosForm(), "usuarios");
-            contentPanel.add(new EstudiantesForm(), "estudiantes");
+            contentPanel.add(new EstudianteForm(), "estudiantes");
             contentPanel.add(new DocentesForm(), "docentes");
             contentPanel.add(new MateriaForm(), "materia");
-            contentPanel.add(new HorarioForm(), "horarios");
+            contentPanel.add(new HorarioForm().getRootPanel(), "horarios");
             contentPanel.add(new EstudianteHorarioForm(), "estudianteHorario");
             contentPanel.add(new PruebaCicloForm().getRootPanel(), "ciclos");
             contentPanel.add(new AulasForm(), "aulas");
@@ -186,7 +186,7 @@ public class FormularioPrincipal {
         menuEstudiantes.addMouseListener(menuClick("estudiantes"));
         menuDocentes.addMouseListener(menuClick("docentes"));
         menuMateria.addMouseListener(menuClick("materia"));
-        menuHorarios.addMouseListener(menuClick("horario"));
+        menuHorarios.addMouseListener(menuClick("horarios"));
         menuEstudianteHorario.addMouseListener(menuClick("estudianteHorario"));
         menuCiclos.addMouseListener(menuClick("ciclos"));
         menuAulas.addMouseListener(menuClick("aulas"));
