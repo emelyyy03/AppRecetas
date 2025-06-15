@@ -4,16 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 
 
 public class FormularioPrincipal {
 
-    private JPanel rootPanel;
+    //private JPanel rootPanel;
     private JPanel contentPanel;
     private String opcionActual= "";
 
-
+    private JPanel rootPanel = new JPanel(new BorderLayout());
     /*public FormularioPrincipal() {
         // Asegurarse de que rootPanel tenga fondo visible
         rootPanel.setOpaque(true);
@@ -49,15 +51,39 @@ public class FormularioPrincipal {
         rootPanel.setOpaque(true);
         rootPanel.setBackground(new Color(210, 210, 210)); // fondo azul oscuro
 
-        if (contentPanel != null) {
-            contentPanel.setOpaque(true);
-            contentPanel.setBackground(new Color(210, 210, 210)); // mismo fondo azul oscuro
-            contentPanel.setLayout(new CardLayout());
+        // Inicializar contentPanel
+        contentPanel = new JPanel(new CardLayout());
+        contentPanel.setOpaque(true);
+        contentPanel.setBackground(new Color(210, 210, 210));
 
-            // Panel base original del formulario principal
-            JPanel panelBase = new JPanel();
-            panelBase.setOpaque(false); // transparente para que se vea el fondo
-            contentPanel.add(panelBase, "inicio");  // <- este es el panel base por defecto
+        // Agregar contentPanel al centro del rootPanel
+        rootPanel.add(contentPanel, BorderLayout.CENTER);
+
+        // Panel de bienvenida personalizado con texto centrado
+        JPanel panelBienvenida = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                String texto = "¡¡Bienvenidos a University App!!";
+                Font font = new Font("Edwardian Script ITC", Font.BOLD, 85);
+                g2.setFont(font);
+                g2.setColor(Color.BLACK);
+
+                FontMetrics fm = g2.getFontMetrics();
+                int textWidth = fm.stringWidth(texto);
+                int textHeight = fm.getAscent();
+
+                int x = (getWidth() - textWidth) / 2;
+                int y = (getHeight() + textHeight) / 2;
+
+                g2.drawString(texto, x, y);
+            }
+        };
+        panelBienvenida.setOpaque(false);
+        contentPanel.add(panelBienvenida, "inicio");
 
             // Agregar formularios al contentPanel
             contentPanel.add(new PerfilForm(), "perfil");
@@ -75,9 +101,8 @@ public class FormularioPrincipal {
             CardLayout cl = (CardLayout) contentPanel.getLayout();
             cl.show(contentPanel, "inicio");
 
-        } else {
-            System.err.println("❌ contentPanel está null. Verifica en el UI Designer que el nombre del panel sea exactamente 'contentPanel'.");
-        }
+
+
     }
 
     public JPanel getRootPanel() {
@@ -91,7 +116,7 @@ public class FormularioPrincipal {
         menuBar.setBackground(new Color(102, 0, 51)); // Fondo oscuro
         menuBar.setOpaque(true);
 
-        // Menús
+       /* // Menús
         JMenu menuPerfil = new JMenu("Mi Perfil");
         JMenu menuUsuarios = new JMenu("Usuarios");
         JMenu menuEstudiantes = new JMenu("Estudiantes");
@@ -101,7 +126,39 @@ public class FormularioPrincipal {
         JMenu menuEstudianteHorario = new JMenu("Estudiante Horario");
         JMenu menuCiclos = new JMenu("Ciclos");
         JMenu menuAulas = new JMenu("Aulas");
+        JMenu menuProgramas = new JMenu("Programas Académicos");*/
+
+        // Menús con íconos
+        JMenu menuPerfil = new JMenu("Mi Perfil");
+        menuPerfil.setIcon(new ImageIcon(getClass().getResource("/icons/perfil.png")));
+
+        JMenu menuUsuarios = new JMenu("Usuarios");
+        menuUsuarios.setIcon(new ImageIcon(getClass().getResource("/icons/usuarios1.png")));
+
+        JMenu menuEstudiantes = new JMenu("Estudiantes");
+        menuEstudiantes.setIcon(new ImageIcon(getClass().getResource("/icons/estudiantes1.png")));
+
+        JMenu menuDocentes = new JMenu("Docentes");
+        menuDocentes.setIcon(new ImageIcon(getClass().getResource("/icons/docentes1.png")));
+
+        JMenu menuMateria = new JMenu("Materia");
+        menuMateria.setIcon(new ImageIcon(getClass().getResource("/icons/materias1.png")));
+
+        JMenu menuHorarios = new JMenu("Horarios");
+        menuHorarios.setIcon(new ImageIcon(getClass().getResource("/icons/horarios1.png")));
+
+        JMenu menuEstudianteHorario = new JMenu("Estudiante Horario");
+        menuEstudianteHorario.setIcon(new ImageIcon(getClass().getResource("/icons/horarioestudiantes1.png")));
+
+        JMenu menuCiclos = new JMenu("Ciclos");
+        menuCiclos.setIcon(new ImageIcon(getClass().getResource("/icons/ciclos1.png")));
+
+        JMenu menuAulas = new JMenu("Aulas");
+        menuAulas.setIcon(new ImageIcon(getClass().getResource("/icons/aulas1.png")));
+
         JMenu menuProgramas = new JMenu("Programas Académicos");
+        menuProgramas.setIcon(new ImageIcon(getClass().getResource("/icons/programas1.png")));
+
 
 
         // Agregar menús
@@ -226,6 +283,7 @@ public class FormularioPrincipal {
                     cl.show(contentPanel, name); // mostrar formulario
                     opcionActual = name;
                 }
+                //rootPanel.repaint(); //  repintar para actualizar el texto de bienvenida
             }
         };
     }
