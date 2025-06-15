@@ -130,7 +130,7 @@ public class FormularioPrincipal {
         Color fondoClaro = new Color(102, 0, 51);
         Color fondoHoverClaro = new Color(255, 255, 255, 30); // más elegante
         Color textoOscuro = Color.WHITE;
-        Font fuente = new Font("Times New Roman", Font.PLAIN, 13);
+        Font fuente = new Font("Times New Roman", Font.PLAIN, 16);
 
         JMenu[] menus = {
                 menuUsuarios, menuEstudiantes, menuDocentes, menuMateria,
@@ -150,18 +150,25 @@ public class FormularioPrincipal {
             menu.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    menu.setBackground(fondoHoverClaro);
+                    SwingUtilities.invokeLater(() -> {
+                        menu.setOpaque(true);
+                        menu.setBackground(fondoHoverClaro);
+                        menu.repaint(); // Evita glitches visuales
+                    });
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    menu.setBackground(fondoClaro);
+                    SwingUtilities.invokeLater(() -> {
+                        menu.setBackground(fondoClaro);
+                        menu.repaint(); // Evita glitches visuales
+                    });
                 }
             });
         }
 
         // Estilo para "Mi Perfil"
-        menuPerfil.setFont(new Font("Times New Roman", Font.BOLD, 13));
+        menuPerfil.setFont(new Font("Times New Roman", Font.BOLD, 16));
         menuPerfil.setForeground(Color.WHITE);
         menuPerfil.setOpaque(true);
         menuPerfil.setBackground(new Color(102, 0, 51));
