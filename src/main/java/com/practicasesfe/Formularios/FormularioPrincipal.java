@@ -47,11 +47,11 @@ public class FormularioPrincipal {
 
         // Asegurarse de que rootPanel tenga fondo visible
         rootPanel.setOpaque(true);
-        rootPanel.setBackground(new Color(24, 24, 24)); // fondo azul oscuro
+        rootPanel.setBackground(new Color(210, 210, 210)); // fondo azul oscuro
 
         if (contentPanel != null) {
             contentPanel.setOpaque(true);
-            contentPanel.setBackground(new Color(24, 24, 24)); // mismo fondo azul oscuro
+            contentPanel.setBackground(new Color(210, 210, 210)); // mismo fondo azul oscuro
             contentPanel.setLayout(new CardLayout());
 
             // Panel base original del formulario principal
@@ -88,7 +88,7 @@ public class FormularioPrincipal {
 
     public void agregarMenu(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(new Color(245, 245, 245)); // Fondo oscuro
+        menuBar.setBackground(new Color(102, 0, 51)); // Fondo oscuro
         menuBar.setOpaque(true);
 
         // Menús
@@ -127,9 +127,9 @@ public class FormularioPrincipal {
 
 
         // Estilos
-        Color fondoClaro = new Color(255, 250, 250);
-        Color fondoHoverClaro = new Color(230, 230, 250); // más elegante
-        Color textoOscuro = Color.BLACK;
+        Color fondoClaro = new Color(102, 0, 51);
+        Color fondoHoverClaro = new Color(255, 255, 255, 30); // más elegante
+        Color textoOscuro = Color.WHITE;
         Font fuente = new Font("Times New Roman", Font.PLAIN, 13);
 
         JMenu[] menus = {
@@ -162,20 +162,20 @@ public class FormularioPrincipal {
 
         // Estilo para "Mi Perfil"
         menuPerfil.setFont(new Font("Times New Roman", Font.BOLD, 13));
-        menuPerfil.setForeground(Color.BLACK);
+        menuPerfil.setForeground(Color.WHITE);
         menuPerfil.setOpaque(true);
-        menuPerfil.setBackground(new Color(255, 250, 250));
+        menuPerfil.setBackground(new Color(102, 0, 51));
         menuPerfil.setBorder(BorderFactory.createEmptyBorder(6, 18, 6, 18));
 
         menuPerfil.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                menuPerfil.setBackground(new Color(230, 230, 250));
+                menuPerfil.setBackground(new Color(255, 255, 255, 30));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                menuPerfil.setBackground(new Color(255, 250, 250));
+                menuPerfil.setBackground(new Color(102, 0, 51));
             }
         });
 
